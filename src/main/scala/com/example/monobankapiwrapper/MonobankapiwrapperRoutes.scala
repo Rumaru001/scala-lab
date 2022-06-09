@@ -30,4 +30,21 @@ object MonobankapiwrapperRoutes {
         } yield resp
     }
   }
+
+  def converterRoutes[F[_]: Sync](C: Converter[F]): HttpRoutes[F] = {
+    val dsl = new Http4sDsl[F]{}
+    import dsl._
+    HttpRoutes.of[F] {
+      case GET -> Root / "db" / decimal =>
+        for {
+          value <- C.db(Converter.Value(decimal))
+          resp <- Ok(value)
+        } yield resp
+      case GET -> Root / "bd" / value =>
+        for {
+          value <- C.bd(Converter.Value(value))
+          resp <- Ok(value)
+        } yield resp
+    }
+  }
 }

@@ -16,6 +16,7 @@ object MonobankapiwrapperServer {
       client <- Stream.resource(EmberClientBuilder.default[F].build)
       helloWorldAlg = HelloWorld.impl[F]
       jokeAlg = Jokes.impl[F](client)
+      converterAlg = Converter.impl[F]
 
       // Combine Service Routes into an HttpApp.
       // Can also be done via a Router if you
@@ -23,7 +24,8 @@ object MonobankapiwrapperServer {
       // in the underlying routes.
       httpApp = (
         MonobankapiwrapperRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
-        MonobankapiwrapperRoutes.jokeRoutes[F](jokeAlg)
+        MonobankapiwrapperRoutes.jokeRoutes[F](jokeAlg) <+>
+          MonobankapiwrapperRoutes.converterRoutes[F](converterAlg)
       ).orNotFound
 
       // With Middlewares in place
