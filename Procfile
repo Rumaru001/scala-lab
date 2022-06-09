@@ -1,1 +1,1 @@
-web: jvm/target/universal/stage/bin/monobank-api-wrapper
+web: web: target/universal/stage/bin/monobank-api-wrapper
