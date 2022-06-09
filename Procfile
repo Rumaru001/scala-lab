@@ -1,1 +1,1 @@
-web: web: target/universal/stage/bin/monobank-api-wrapper
+web: target/universal/stage/bin/monobank-api-wrapper
